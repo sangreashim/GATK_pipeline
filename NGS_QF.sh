@@ -4,9 +4,8 @@
 ## argv2 is full path of IlluQC.pl
 
 cd $1
-ls *.fastq.gz | cut -f 1 -d '_' | sort -u > fastq_header
 
-for file_name in $(cat "fastq_header")
+for file_name in `ls $1/*.fastq.gz | cut -f 1 -d '_' | sort -u`
 do
 echo $file_name' is now on quality filering!!'
 ngstoolkit_dir=$(echo $file_name'_ngstoolkit')
