@@ -17,5 +17,5 @@ run_alignBWA.sh (bwa_reference_file) (dir. of fastq file saved)
 gatk_pipe.sh (dir. of bam file saved) (path of picard software) (full apth of gatk.jar) (reference_fasta)
 gatk_pipe_variationCall.sh (dir. of bam file saved) (path of picard software) (full apth of gatk.jar) (reference_fasta)
 
-# Step 4. gatk_pipe_variation_validation.sh 
+# Step 3. gatk_pipe_variation_validation.sh 
 gatk_pipe_variation_validation.sh (vcf file) (path of picard software) (full apth of gatk.jar) (reference_fasta)
