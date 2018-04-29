@@ -1,13 +1,13 @@
 #	$1	bwa_reference
 #	$2	cohort
 #	$3	NGS_dir
+
+bwa index $1 $1
+
 mkdir $2
 cd $3
-#parallel bwa aln -t 2 ../ref/redbean.ref.fasta {} -f {}.sai ::: V_nakashimae_2_?.fastq.gz
 
-#bwa index ../redbean.ref.fasta
-
-echo '#####################################'
+echo '##################################### Mapping '$2' #####################################' 
 
 paired1=$(echo $2'_1.fastq.gz')
 paired2=$(echo $2'_2.fastq.gz')
