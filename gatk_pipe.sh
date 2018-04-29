@@ -24,6 +24,5 @@ java -Djava.io.tmpdir=./temp/ -Xmx3g -jar $3 -T IndelRealigner -R $4 -fixMisenco
 java -Djava.io.tmpdir=./temp/ -Xmx3g -jar $3 -T BaseRecalibrator -o $gt.recal.csv -R $4 -I $bam.addRG.bam.dedup.bam.fixmate.bam.realigned.bam -cov ReadGroupCovariate -cov QualityScoreCovariate -cov CycleCovariate -cov ContextCovariate -U ALLOW_SEQ_DICT_INCOMPATIBILITY --run_without_dbsnp_potentially_ruining_quality
 java -Djava.io.tmpdir=./temp/ -Xmx3g -jar $3 -T PrintReads -R $4 -I $bam.addRG.bam.dedup.bam.fixmate.bam.realigned.bam -BQSR $gt.recal.csv -o Recal_$gt.bam
 #rm $bam.addRG.bam.dedup.bam.fixmate.bam.realigned.bam
-java -Djava.io.tmpdir=./temp/ -Xmx20g -jar $2/MergeSamFiles.jar I=Recal_$gt.bam O=Integrated.bam SO=coordinate ASSUME_SORTED=true USE_THREADING=true
 done
 cd ..
