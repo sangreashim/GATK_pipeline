@@ -2,7 +2,6 @@
 #	$2	picard
 #	$3	gatk
 #	$4	reference.fa
-#	$5	maxDP == averageCov*2
 
 echo 'gaTK filter variation from '$1'. reference is '$4
 
