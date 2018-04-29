@@ -1,6 +1,6 @@
 # $1 == bwa out bam file
-# $2 == picard file
-# $3 == gatk file
+# $2 == picard exe file
+# $3 == gatk exe file
 # $4 == reference
 #cd $1
 
@@ -13,21 +13,21 @@ echo $gt
 
 mkdir ./temp
 
-#java -Djava.io.tmpdir=./temp/ -Xmx3g -jar $2 AddOrReplaceReadGroups I=$bam O=$bam.addRG.bam SO=coordinate RGID=$gt RGLB=$gt RGPL=illumina RGSM=$gt RGPU=$gt 
+java -Djava.io.tmpdir=./temp/ -Xmx3g -jar $2 AddOrReplaceReadGroups I=$bam O=$bam.addRG.bam SO=coordinate RGID=$gt RGLB=$gt RGPL=illumina RGSM=$gt RGPU=$gt 
 
-#java -Djava.io.tmpdir=./temp/ -Xmx3g -jar $2 MarkDuplicates MAX_FILE_HANDLES_FOR_READ_ENDS_MAP=1000 METRICS_FILE=$gt.out.metrics REMOVE_DUPLICATES=true ASSUME_SORTED=true I=$bam.addRG.bam O=$bam.addRG.bam.dedup.bam
+java -Djava.io.tmpdir=./temp/ -Xmx3g -jar $2 MarkDuplicates MAX_FILE_HANDLES_FOR_READ_ENDS_MAP=1000 METRICS_FILE=$gt.out.metrics REMOVE_DUPLICATES=true ASSUME_SORTED=true I=$bam.addRG.bam O=$bam.addRG.bam.dedup.bam
 
 #rm $bam.addRG.bam
 
-#java -Djava.io.tmpdir=./temp/ -Xmx3g -jar $2 FixMateInformation I=$bam.addRG.bam.dedup.bam O=$bam.addRG.bam.dedup.bam.fixmate.bam SO=coordinate
+java -Djava.io.tmpdir=./temp/ -Xmx3g -jar $2 FixMateInformation I=$bam.addRG.bam.dedup.bam O=$bam.addRG.bam.dedup.bam.fixmate.bam SO=coordinate
 
 #rm $bam.addRG.bam.dedup.bam
 
-#samtools index $bam.addRG.bam.dedup.bam.fixmate.bam
+samtools index $bam.addRG.bam.dedup.bam.fixmate.bam
 
-#java -jar $2/CreateSequenceDictionary.jar R=$4 O=./redbean.ref.dict
+java -jar $2/CreateSequenceDictionary.jar R=$4 O=./redbean.ref.dict
 
-#java -Djava.io.tmpdir=./temp/ -Xmx3g -jar $3 -T RealignerTargetCreator -R $4 -fixMisencodedQuals -I $bam.addRG.bam.dedup.bam.fixmate.bam -o $gt.intervals
+java -Djava.io.tmpdir=./temp/ -Xmx3g -jar $3 -T RealignerTargetCreator -R $4 -fixMisencodedQuals -I $bam.addRG.bam.dedup.bam.fixmate.bam -o $gt.intervals
 
 java -Djava.io.tmpdir=./temp/ -Xmx3g -jar $3 -T IndelRealigner -R $4 -fixMisencodedQuals -I $bam.addRG.bam.dedup.bam.fixmate.bam -o $bam.addRG.bam.dedup.bam.fixmate.bam.realigned.bam -targetIntervals $gt.intervals
 
@@ -39,7 +39,7 @@ java -Djava.io.tmpdir=./temp/ -Xmx3g -jar $3 -T PrintReads -R $4 -I $bam.addRG.b
 
 #rm $bam.addRG.bam.dedup.bam.fixmate.bam.realigned.bam
 
-#java -Djava.io.tmpdir=./temp/ -Xmx20g -jar $2 MergeSamFiles I=Recal_$gt.bam O=Integrated.bam SO=coordinate ASSUME_SORTED=true USE_THREADING=true
+java -Djava.io.tmpdir=./temp/ -Xmx20g -jar $2 MergeSamFiles I=Recal_$gt.bam O=Integrated.bam SO=coordinate ASSUME_SORTED=true USE_THREADING=true
 
 #rm Recal_$gt.bam
 
